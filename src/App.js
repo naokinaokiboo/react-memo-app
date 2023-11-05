@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { flushSync } from "react-dom";
 import {
   doc,
+  getDoc,
   getDocs,
   addDoc,
   updateDoc,
@@ -18,6 +20,7 @@ import EditForm from "./EditForm.js";
 function App() {
   const [memos, setMemos] = useState([]);
   const [selectedMemo, setSelectedMemo] = useState(null);
+  const refTextArea = useRef(null);
 
   useEffect(() => {
     const fetch = async () => {
@@ -48,12 +51,17 @@ function App() {
   };
 
   const handleAddButtonClick = async () => {
-    await addDoc(collection(db, "memos"), {
+    const newMemoRef = await addDoc(collection(db, "memos"), {
       content: "新規メモ",
       timestamp: serverTimestamp(),
     });
-    const nextMemos = await getAllMemos();
-    setMemos(nextMemos);
+    const newMemoSnap = await getDoc(newMemoRef);
+    const newMemo = { id: newMemoSnap.id, content: newMemoSnap.data().content };
+    flushSync(() => {
+      setMemos([...memos, newMemo]);
+      setSelectedMemo(newMemo);
+    });
+    refTextArea.current.focus();
   };
 
   const handleTextChange = (text) => {
@@ -87,6 +95,7 @@ function App() {
       {selectedMemo && (
         <EditForm
           memo={selectedMemo}
+          refTextArea={refTextArea}
           onTextChange={handleTextChange}
           onEditButtonClick={handleEditButtonClick}
           onDeleteButtonClick={handleDeleteButtonClick}

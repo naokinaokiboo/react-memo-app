@@ -2,6 +2,7 @@ import React from "react";
 
 const EditForm = ({
   memo,
+  refTextArea,
   onTextChange,
   onEditButtonClick,
   onDeleteButtonClick,
@@ -9,6 +10,7 @@ const EditForm = ({
   return (
     <div>
       <textarea
+        ref={refTextArea}
         value={memo.content}
         onChange={(e) => onTextChange(e.target.value)}
       />
