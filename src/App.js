@@ -71,7 +71,11 @@ function App() {
   const handleEditButtonClick = async () => {
     const docRef = doc(db, "memos", selectedMemo.id);
     await updateDoc(docRef, { content: selectedMemo.content });
-    const nextMemos = await getAllMemos();
+    const nextMemos = memos.map((memo) =>
+      memo.id === selectedMemo.id
+        ? { ...memo, content: selectedMemo.content }
+        : memo,
+    );
     setMemos(nextMemos);
     setSelectedMemo(null);
   };
@@ -79,8 +83,7 @@ function App() {
   const handleDeleteButtonClick = async () => {
     const docRef = doc(db, "memos", selectedMemo.id);
     await deleteDoc(docRef);
-    const nextMemos = await getAllMemos();
-    setMemos(nextMemos);
+    setMemos(memos.filter((memo) => memo.id !== selectedMemo.id));
     setSelectedMemo(null);
   };
 
