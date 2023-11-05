@@ -7,6 +7,8 @@ import {
   deleteDoc,
   collection,
   serverTimestamp,
+  query,
+  orderBy,
 } from "firebase/firestore";
 import "./App.css";
 import db from "./firestore.js";
@@ -26,9 +28,13 @@ function App() {
   }, []);
 
   const getAllMemos = async () => {
-    const querySnapshot = await getDocs(collection(db, "memos"));
+    const queryGetOrderedMemos = query(
+      collection(db, "memos"),
+      orderBy("timestamp"),
+    );
+    const memosSnapshot = await getDocs(queryGetOrderedMemos);
     let memos = [];
-    querySnapshot.forEach((doc) => {
+    memosSnapshot.forEach((doc) => {
       memos.push({
         id: doc.id,
         content: doc.data().content,
