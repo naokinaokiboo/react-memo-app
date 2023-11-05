@@ -47,7 +47,10 @@ function App() {
   };
 
   const handleMemoClick = (memo) => {
-    setSelectedMemo({ id: memo.id, content: memo.content });
+    flushSync(() => {
+      setSelectedMemo({ id: memo.id, content: memo.content });
+    });
+    refTextArea.current.focus();
   };
 
   const handleAddButtonClick = async () => {
