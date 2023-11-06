@@ -1,11 +1,14 @@
 import React from "react";
 
-const MemoList = ({ memos, onMemoClick }) => {
+const MemoList = ({ memos, onMemoClick, selectedMemoID }) => {
   return (
-    <div>
+    <div className="memo-list">
       <ul>
         {memos.map((memo) => (
-          <li key={memo.id}>
+          <li
+            key={memo.id}
+            className={memo.id === selectedMemoID ? "active-memo" : ""}
+          >
             <p onClick={() => onMemoClick(memo)}>
               {memo.content.split("\n")[0]}
             </p>

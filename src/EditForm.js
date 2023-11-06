@@ -8,7 +8,7 @@ const EditForm = ({
   onDeleteButtonClick,
 }) => {
   return (
-    <div>
+    <div className="edit-form">
       <textarea
         ref={refTextArea}
         value={memo.content}
