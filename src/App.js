@@ -93,11 +93,8 @@ function App() {
   return (
     <div>
       <h1>React Memo App</h1>
-      <MemoList
-        memos={memos}
-        onMemoClick={handleMemoClick}
-        onAddButtonClick={handleAddButtonClick}
-      />
+      <button onClick={handleAddButtonClick}>+新規メモ</button>
+      <MemoList memos={memos} onMemoClick={handleMemoClick} />
       {selectedMemo && (
         <EditForm
           memo={selectedMemo}

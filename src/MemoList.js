@@ -1,6 +1,6 @@
 import React from "react";
 
-const MemoList = ({ memos, onMemoClick, onAddButtonClick }) => {
+const MemoList = ({ memos, onMemoClick }) => {
   return (
     <div>
       <ul>
@@ -12,7 +12,6 @@ const MemoList = ({ memos, onMemoClick, onAddButtonClick }) => {
           </li>
         ))}
       </ul>
-      <button onClick={onAddButtonClick}>+新規メモ</button>
     </div>
   );
 };
