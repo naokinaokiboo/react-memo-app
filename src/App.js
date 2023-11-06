@@ -54,11 +54,11 @@ function App() {
   };
 
   const handleAddButtonClick = async () => {
-    const newMemoRef = await addDoc(collection(db, "memos"), {
+    const newMemoReference = await addDoc(collection(db, "memos"), {
       content: "新規メモ",
       timestamp: serverTimestamp(),
     });
-    const newMemoSnap = await getDoc(newMemoRef);
+    const newMemoSnap = await getDoc(newMemoReference);
     const newMemo = { id: newMemoSnap.id, content: newMemoSnap.data().content };
     flushSync(() => {
       setMemos([...memos, newMemo]);
@@ -72,8 +72,8 @@ function App() {
   };
 
   const handleEditButtonClick = async () => {
-    const docRef = doc(db, "memos", selectedMemo.id);
-    await updateDoc(docRef, { content: selectedMemo.content });
+    const memoReference = doc(db, "memos", selectedMemo.id);
+    await updateDoc(memoReference, { content: selectedMemo.content });
     const nextMemos = memos.map((memo) =>
       memo.id === selectedMemo.id
         ? { ...memo, content: selectedMemo.content }
@@ -84,8 +84,8 @@ function App() {
   };
 
   const handleDeleteButtonClick = async () => {
-    const docRef = doc(db, "memos", selectedMemo.id);
-    await deleteDoc(docRef);
+    const memoReference = doc(db, "memos", selectedMemo.id);
+    await deleteDoc(memoReference);
     setMemos(memos.filter((memo) => memo.id !== selectedMemo.id));
     setSelectedMemo(null);
   };
