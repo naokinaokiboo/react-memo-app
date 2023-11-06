@@ -16,7 +16,7 @@
 - [Firebaseコンソール](https://console.firebase.google.com/)から作成したプロジェクトに移動し、以下の赤枠のボタンを選択し、画面の指示に従い進めます。
   - ※`Firebase SDKの追加`では`npmを使用する`を選択してください。
 
-![clipboard.png](inkdrop://file:Ll4Dxd2sl)
+![image](https://github.com/naokinaokiboo/react-memo-app/assets/131861805/60644ae3-b381-4875-a7b9-39842b8429fe)
 
 ### データベースの作成
 
@@ -40,7 +40,7 @@ REACT_APP_FIREBASE_APP_ID="..."
 - 構成情報の確認方法
   - [Firebaseコンソール](https://console.firebase.google.com/)から作成したプロジェクトに移動
   - 画面左のサイドバーから`プロジェクトの設定`を選択  
-    ![clipboard.png](inkdrop://file:ja1yHHZAh)
+    ![image](https://github.com/naokinaokiboo/react-memo-app/assets/131861805/67aff692-6039-4614-8d1e-f0ca1b38b5e6)
   - `全般`タブの`マイアプリ`内の`SDKの設定と構成`にある`firebaseConfig`を参照
     ```
     const firebaseConfig = {
