@@ -17,6 +17,8 @@ import db from "./firestore.js";
 import MemoList from "./MemoList.js";
 import EditForm from "./EditForm.js";
 
+const MEMO_COLLECTION = "memos";
+
 function App() {
   const [memos, setMemos] = useState([]);
   const [selectedMemo, setSelectedMemo] = useState(null);
@@ -32,7 +34,7 @@ function App() {
 
   const getAllMemos = async () => {
     const queryGetOrderedMemos = query(
-      collection(db, "memos"),
+      collection(db, MEMO_COLLECTION),
       orderBy("timestamp"),
     );
     const memosSnapshot = await getDocs(queryGetOrderedMemos);
@@ -54,7 +56,7 @@ function App() {
   };
 
   const handleAddButtonClick = async () => {
-    const newMemoReference = await addDoc(collection(db, "memos"), {
+    const newMemoReference = await addDoc(collection(db, MEMO_COLLECTION), {
       content: "新規メモ",
       timestamp: serverTimestamp(),
     });
@@ -72,7 +74,7 @@ function App() {
   };
 
   const handleEditButtonClick = async () => {
-    const memoReference = doc(db, "memos", selectedMemo.id);
+    const memoReference = doc(db, MEMO_COLLECTION, selectedMemo.id);
     await updateDoc(memoReference, { content: selectedMemo.content });
     const nextMemos = memos.map((memo) =>
       memo.id === selectedMemo.id
@@ -84,7 +86,7 @@ function App() {
   };
 
   const handleDeleteButtonClick = async () => {
-    const memoReference = doc(db, "memos", selectedMemo.id);
+    const memoReference = doc(db, MEMO_COLLECTION, selectedMemo.id);
     await deleteDoc(memoReference);
     setMemos(memos.filter((memo) => memo.id !== selectedMemo.id));
     setSelectedMemo(null);
