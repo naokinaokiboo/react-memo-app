@@ -16,14 +16,15 @@ import "./App.css";
 import db from "./firestore.js";
 import MemoList from "./MemoList.js";
 import EditForm from "./EditForm.js";
-import SessionContext from "./SessionContext";
+import SessionButton from "./SessionButton.js";
+import AddMemoButton from "./AddMemoButton.js";
+import { SessionProvider } from "./useSession.js";
 
 const MEMO_COLLECTION = "memos";
 
 function App() {
   const [memos, setMemos] = useState([]);
   const [selectedMemo, setSelectedMemo] = useState(null);
-  const [session, setSession] = useState(false);
   const refTextArea = useRef(null);
 
   useEffect(() => {
@@ -96,19 +97,11 @@ function App() {
 
   return (
     <div className="main-container">
-      <SessionContext.Provider value={session}>
+      <SessionProvider value={false}>
         <h1>React Memo App</h1>
         <div className="button-container">
-          {session && (
-            <button onClick={handleAddButtonClick}>新規メモ作成</button>
-          )}
-          <button
-            onClick={() => {
-              setSession(!session);
-            }}
-          >
-            {session ? "ログアウト" : "ログイン"}
-          </button>
+          <AddMemoButton onAddMemoButtonClick={handleAddButtonClick} />
+          <SessionButton />
         </div>
         <MemoList
           memos={memos}
@@ -124,7 +117,7 @@ function App() {
             onDeleteButtonClick={handleDeleteButtonClick}
           />
         )}
-      </SessionContext.Provider>
+      </SessionProvider>
     </div>
   );
 }

@@ -1,5 +1,5 @@
-import { React, useContext } from "react";
-import SessionContext from "./SessionContext";
+import React from "react";
+import { useSession } from "./useSession.js";
 
 const EditForm = ({
   memo,
@@ -8,7 +8,7 @@ const EditForm = ({
   onEditButtonClick,
   onDeleteButtonClick,
 }) => {
-  const session = useContext(SessionContext);
+  const { session } = useSession();
 
   return (
     <div className="edit-form">
