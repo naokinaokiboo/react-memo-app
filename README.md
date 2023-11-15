@@ -21,8 +21,24 @@
 ### データベースの作成
 
 - [Firebaseコンソール](https://console.firebase.google.com/)から作成したプロジェクトに移動、`Cloud Firestore`を選択し、データベースを作成します。
-  - `本番環境モード`か`テストモード`かを選択できますが、すぐに使用したい場合は`テストモード`を選択してください。
-  - `本番環境モード`を選択する場合は、[基本的なセキュリティルール](https://firebase.google.com/docs/rules/basics)を参照して、ルールの設定をしてください。
+
+  - `本番環境モード`か`テストモード`かを選択できますが、すぐに使用したい場合は`テストモード`を選択してください。（デフォルトで30日間、読み込み、書き込みができるセキュリティルールが設定されます。）
+  - `本番環境モード`を選択した場合は、デフォルトでセキュリティルールにより読み込み、書き込みが共に無効になっているので、以下の手順で読み込み、書き込みを有効にする必要があります。
+
+    - [Firebaseコンソール](https://console.firebase.google.com/)から作成したプロジェクトに移動後、`Cloud Firestore`へ移動します。
+    - `ルール`タブを選択し、以下のように変更します。
+
+    ```
+    rules_version = '2';
+
+    service cloud.firestore {
+      match /databases/{database}/documents {
+        match /{document=**} {
+          allow read, write: if true;
+        }
+      }
+    }
+    ```
 
 ## Firebase構成情報を用意
 
