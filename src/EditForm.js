@@ -13,6 +13,7 @@ const EditForm = ({
   return (
     <div className="edit-form">
       <textarea
+        readOnly={!session}
         ref={refTextArea}
         value={memo.content}
         onChange={(e) => onTextChange(e.target.value)}
