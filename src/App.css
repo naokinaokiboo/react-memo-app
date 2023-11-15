@@ -36,3 +36,57 @@
     transform: rotate(360deg);
   }
 }
+
+.main-container {
+  width: 800px;
+  margin: auto;
+}
+
+.main-container h1 {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.main-container button {
+  display: block;
+  margin: auto;
+  width: 200px;
+}
+
+.memo-list {
+  display: inline-block;
+  width: 60%;
+  word-break: break-all;
+}
+
+.memo-list ul li {
+  margin-right: 30px;
+}
+
+.memo-list ul li p {
+  width: fit-content;
+}
+
+.active-memo p {
+  font-weight: bold;
+}
+
+.edit-form {
+  display: inline-block;
+  vertical-align: top;
+  width: 40%;
+}
+
+.edit-form textarea {
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 15px;
+  height: 400px;
+  border-radius: 5px;
+}
+
+.edit-form button {
+  display: inline-block;
+  width: 90px;
+  margin-left: 15%;
+}
