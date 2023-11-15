@@ -101,7 +101,7 @@ function App() {
         <h1>React Memo App</h1>
         <div className="button-container">
           <AddMemoButton onAddMemoButtonClick={handleAddButtonClick} />
-          <SessionButton />
+          <SessionButton onClearSelection={() => setSelectedMemo(null)} />
         </div>
         <MemoList
           memos={memos}

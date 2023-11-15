@@ -1,11 +1,16 @@
 import React from "react";
 import { useSession } from "./useSession.js";
 
-const SessionButton = () => {
+const SessionButton = ({ onClearSelection }) => {
   const { session, setSession } = useSession();
 
   return (
-    <button onClick={() => setSession(!session)}>
+    <button
+      onClick={() => {
+        setSession(!session);
+        onClearSelection();
+      }}
+    >
       {session ? "ログアウト" : "ログイン"}
     </button>
   );
