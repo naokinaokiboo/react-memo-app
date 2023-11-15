@@ -53,6 +53,15 @@
   width: 200px;
 }
 
+.button-container {
+  text-align: right;
+}
+
+.button-container button {
+  display: inline-block;
+  margin-right: 50px;
+}
+
 .memo-list {
   display: inline-block;
   width: 60%;

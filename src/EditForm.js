@@ -1,4 +1,5 @@
-import React from "react";
+import { React, useContext } from "react";
+import SessionContext from "./SessionContext";
 
 const EditForm = ({
   memo,
@@ -7,6 +8,8 @@ const EditForm = ({
   onEditButtonClick,
   onDeleteButtonClick,
 }) => {
+  const session = useContext(SessionContext);
+
   return (
     <div className="edit-form">
       <textarea
@@ -14,8 +17,8 @@ const EditForm = ({
         value={memo.content}
         onChange={(e) => onTextChange(e.target.value)}
       />
-      <button onClick={onEditButtonClick}>編集</button>
-      <button onClick={onDeleteButtonClick}>削除</button>
+      {session && <button onClick={onEditButtonClick}>編集</button>}
+      {session && <button onClick={onDeleteButtonClick}>削除</button>}
     </div>
   );
 };

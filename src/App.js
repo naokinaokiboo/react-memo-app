@@ -16,12 +16,14 @@ import "./App.css";
 import db from "./firestore.js";
 import MemoList from "./MemoList.js";
 import EditForm from "./EditForm.js";
+import SessionContext from "./SessionContext";
 
 const MEMO_COLLECTION = "memos";
 
 function App() {
   const [memos, setMemos] = useState([]);
   const [selectedMemo, setSelectedMemo] = useState(null);
+  const [session, setSession] = useState(false);
   const refTextArea = useRef(null);
 
   useEffect(() => {
@@ -94,22 +96,35 @@ function App() {
 
   return (
     <div className="main-container">
-      <h1>React Memo App</h1>
-      <button onClick={handleAddButtonClick}>新規メモ作成</button>
-      <MemoList
-        memos={memos}
-        onMemoClick={handleMemoClick}
-        selectedMemoID={selectedMemo?.id}
-      />
-      {selectedMemo && (
-        <EditForm
-          memo={selectedMemo}
-          refTextArea={refTextArea}
-          onTextChange={handleTextChange}
-          onEditButtonClick={handleEditButtonClick}
-          onDeleteButtonClick={handleDeleteButtonClick}
+      <SessionContext.Provider value={session}>
+        <h1>React Memo App</h1>
+        <div className="button-container">
+          {session && (
+            <button onClick={handleAddButtonClick}>新規メモ作成</button>
+          )}
+          <button
+            onClick={() => {
+              setSession(!session);
+            }}
+          >
+            {session ? "ログアウト" : "ログイン"}
+          </button>
+        </div>
+        <MemoList
+          memos={memos}
+          onMemoClick={handleMemoClick}
+          selectedMemoID={selectedMemo?.id}
         />
-      )}
+        {selectedMemo && (
+          <EditForm
+            memo={selectedMemo}
+            refTextArea={refTextArea}
+            onTextChange={handleTextChange}
+            onEditButtonClick={handleEditButtonClick}
+            onDeleteButtonClick={handleDeleteButtonClick}
+          />
+        )}
+      </SessionContext.Provider>
     </div>
   );
 }
