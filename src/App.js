@@ -16,6 +16,9 @@ import "./App.css";
 import db from "./firestore.js";
 import MemoList from "./MemoList.js";
 import EditForm from "./EditForm.js";
+import SessionButton from "./SessionButton.js";
+import AddMemoButton from "./AddMemoButton.js";
+import { SessionProvider } from "./useSession.js";
 
 const MEMO_COLLECTION = "memos";
 
@@ -94,22 +97,27 @@ function App() {
 
   return (
     <div className="main-container">
-      <h1>React Memo App</h1>
-      <button onClick={handleAddButtonClick}>新規メモ作成</button>
-      <MemoList
-        memos={memos}
-        onMemoClick={handleMemoClick}
-        selectedMemoID={selectedMemo?.id}
-      />
-      {selectedMemo && (
-        <EditForm
-          memo={selectedMemo}
-          refTextArea={refTextArea}
-          onTextChange={handleTextChange}
-          onEditButtonClick={handleEditButtonClick}
-          onDeleteButtonClick={handleDeleteButtonClick}
+      <SessionProvider value={false}>
+        <h1>React Memo App</h1>
+        <div className="button-container">
+          <AddMemoButton onAddMemoButtonClick={handleAddButtonClick} />
+          <SessionButton onClearSelection={() => setSelectedMemo(null)} />
+        </div>
+        <MemoList
+          memos={memos}
+          onMemoClick={handleMemoClick}
+          selectedMemoID={selectedMemo?.id}
         />
-      )}
+        {selectedMemo && (
+          <EditForm
+            memo={selectedMemo}
+            refTextArea={refTextArea}
+            onTextChange={handleTextChange}
+            onEditButtonClick={handleEditButtonClick}
+            onDeleteButtonClick={handleDeleteButtonClick}
+          />
+        )}
+      </SessionProvider>
     </div>
   );
 }
